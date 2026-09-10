@@ -1,0 +1,8 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.model_cache.json
+samples/output/
+.streamlit/secrets.toml
+.DS_Store
