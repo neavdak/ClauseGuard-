@@ -43,16 +43,16 @@ def main() -> None:
     if args.mock:
         settings.mock_mode = True
 
-    print(f"Mode:           {'MOCK (offline heuristics)' if settings.mock_mode else 'LIVE (Nebius Token Factory)'}")
-    print(f"Tavily:         {'ON' if use_tavily else 'OFF' + ('' if args.no_tavily or not settings.tavily_key else '')}")
-    print(f"Document:       {path.name} ({len(text)} chars)")
+    print(f"Mode:           {'MOCK (offline heuristics)' if settings.mock_mode else 'LIVE (Nebius Token Factory)'}", flush=True)
+    print(f"Tavily:         {'ON' if use_tavily else 'OFF' + ('' if args.no_tavily or not settings.tavily_key else '')}", flush=True)
+    print(f"Document:       {path.name} ({len(text)} chars)", flush=True)
     if not settings.mock_mode:
         print(f"Models:         nano={settings.model_nano or 'auto'}  super={settings.model_super or 'auto'}"
-              f"  ultra={settings.model_ultra or 'auto'}")
-    print()
+              f"  ultra={settings.model_ultra or 'auto'}", flush=True)
+    print(flush=True)
 
     def on_stage(done: int, total: int, label: str) -> None:
-        print(f"  [{done}/{total}] {label}")
+        print(f"  [{done}/{total}] {label}", flush=True)
 
     started = time.time()
     report = analyze_document(path.name, text, use_tavily=use_tavily, on_stage=on_stage)

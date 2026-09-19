@@ -1,0 +1,28 @@
+# Environment and secrets
+.env
+*.env
+.env.*
+!.env.example
+secrets.toml
+.streamlit/secrets.toml
+
+# Python virtualenvs and caches
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# App caches and outputs
+.model_cache.json
+clauseguard/.model_cache.json
+samples/output/
+clauseguard/samples/output/
+
+# OS files
+.DS_Store
+Thumbs.db

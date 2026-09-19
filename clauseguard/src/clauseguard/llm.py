@@ -21,6 +21,7 @@ class LLMError(RuntimeError):
 
 def parse_jsonish(text: str) -> Any:
     t = text.strip()
+    t = re.sub(r"<think>.*?</think>", "", t, flags=re.DOTALL).strip()
     t = re.sub(r"^```[a-zA-Z]*\s*", "", t)
     t = re.sub(r"```\s*$", "", t).strip()
     try:
@@ -31,7 +32,10 @@ def parse_jsonish(text: str) -> Any:
             if earliest is None or m.start() < earliest[0]:
                 earliest = (m.start(), m.group())
         if earliest:
-            return json.loads(earliest[1])
+            try:
+                return json.loads(earliest[1])
+            except json.JSONDecodeError:
+                pass
         raise
 
 
@@ -93,7 +97,10 @@ class Router:
                 resp = self._get_client().chat.completions.create(**kwargs)
             except Exception as exc:
                 raise LLMError(f"Token Factory call failed ({tier}/{model_name}): {exc}") from exc
-            content = resp.choices[0].message.content or ""
+            msg = resp.choices[0].message
+            content = msg.content or ""
+            if not content:
+                content = getattr(msg, "reasoning_content", None) or getattr(msg, "reasoning", None) or ""
             prompt_tokens = getattr(resp.usage, "prompt_tokens", 0) if resp.usage else 0
             completion_tokens = getattr(resp.usage, "completion_tokens", 0) if resp.usage else 0
 

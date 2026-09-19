@@ -4,3 +4,4 @@ streamlit>=1.36       # beginner-friendly web UI
 pdfplumber>=0.11      # PDF text extraction
 python-dotenv>=1.0    # load .env locally
 requests>=2.31        # model discovery + Tavily search
+python-docx>=1.1.0    # DOCX contract ingestion

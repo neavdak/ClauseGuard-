@@ -40,6 +40,15 @@ def extract_text(filename: str, data: bytes, router: Router | None = None) -> di
             }
         return {"text": text[:MAX_CHARS], "warning": ""}
 
+    if name.endswith(".docx"):
+        try:
+            import docx
+            doc = docx.Document(io.BytesIO(data))
+            text = "\n\n".join(p.text for p in doc.paragraphs if p.text.strip())
+            return {"text": text[:MAX_CHARS], "warning": ""}
+        except Exception as exc:
+            return {"text": "", "warning": f"Could not read DOCX: {exc}"}
+
     if name.endswith((".png", ".jpg", ".jpeg", ".webp")):
         if router is None or not router.tiers.get("vl"):
             return {

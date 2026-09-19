@@ -31,7 +31,7 @@ else:
             ],
             purpose="connectivity",
             json_mode=False,
-            max_tokens=5,
+            max_tokens=500,
         )
         print(f"  live inference reply: {reply.strip()[:40]!r}")
     except Exception as exc:

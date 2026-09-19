@@ -87,7 +87,13 @@ def discover(force: bool = False) -> dict[str, str | None]:
         tiers["nano"] = tiers["nano"] or _pick(ids, ("nano",), ("vl", "vision"))
         tiers["super"] = tiers["super"] or _pick(ids, ("super",))
         tiers["ultra"] = tiers["ultra"] or _pick(ids, ("ultra",))
-        tiers["vl"] = tiers["vl"] or _pick(ids, ("vl",)) or _pick(ids, ("vision",))
+        tiers["vl"] = (
+            tiers["vl"]
+            or _pick(ids, ("vl",))
+            or _pick(ids, ("vision",))
+            or _pick(ids, ("minicpm",))
+            or _pick(ids, ("-v-",))
+        )
 
         any_text_nem = _pick(ids, ("nemotron",), ("vl", "vision")) or ids[0]
         tiers["nano"] = tiers["nano"] or any_text_nem

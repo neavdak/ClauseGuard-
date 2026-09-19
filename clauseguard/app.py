@@ -59,10 +59,17 @@ st.write(
     "ones to **Nemotron Ultra** for negotiation strategy, and checks current legal context via **Tavily**."
 )
 
-# --------------------------------------------------------------------------- input
+col_load1, col_load2 = st.columns([1, 3])
+with col_load1:
+    if st.button("📄 Load Demo Contract", help="Load the sample freelance MSA with high-risk clauses"):
+        sample_path = Path(__file__).parent / "samples" / "sample_freelance_msa.txt"
+        if sample_path.exists():
+            st.session_state["pasted_contract"] = sample_path.read_text(encoding="utf-8")
+            st.rerun()
+
 with st.form("upload_form"):
-    uploaded = st.file_uploader("Contract file", type=["pdf", "txt", "md", "png", "jpg", "jpeg", "webp"])
-    pasted = st.text_area("…or paste the contract text here", height=160)
+    uploaded = st.file_uploader("Contract file", type=["pdf", "docx", "txt", "md", "png", "jpg", "jpeg", "webp"])
+    pasted = st.text_area("…or paste the contract text here", value=st.session_state.get("pasted_contract", ""), height=160)
     do_tavily = st.toggle("Check recent legal context with Tavily", value=True)
     submitted = st.form_submit_button("⚡ Analyse contract", type="primary")
 

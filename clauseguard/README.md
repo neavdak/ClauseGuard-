@@ -20,7 +20,7 @@ perpetual IP grabs, 5-year non-competes (largely void under Indian law), distant
 
 ## What ClauseGuard does
 
-1. **Upload** a PDF / text contract (or screenshot — scanned pages are read by the Nemotron vision model).
+1. **Upload** a PDF, DOCX, text contract (or screenshot — scanned pages are read by the vision model).
 2. **Nemotron Super** (120B hybrid MoE, 1M-token context) segments long agreements into clauses.
 3. **Nemotron Nano** bulk-classifies every clause against a legal checklist with severity ratings — the cheap, high-volume stage.
 4. **Nemotron Ultra** is invoked *only* for critical/high clauses to produce negotiation strategy, fallback positions and a ready-to-send email.
@@ -40,7 +40,7 @@ proving the app stays responsive and credits go only where reasoning depth matte
 ## Tech stack
 
 Python · Streamlit · [Nebius Token Factory](https://docs.tokenfactory.nebius.com) (OpenAI-compatible API) ·
-NVIDIA Nemotron 3 **Nano / Super / Ultra (+ Nano VL)** · Tavily Search API · pdfplumber.
+NVIDIA Nemotron 3 **Nano / Super / Ultra (+ Vision)** · Tavily Search API · pdfplumber · python-docx.
 
 ## Quickstart
 

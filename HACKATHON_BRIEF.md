@@ -59,5 +59,15 @@
 - Materials in English (or English translations provided).
 - Excluded: Brazil, Quebec, Russia, Crimea, Cuba, Iran, North Korea, comprehensively sanctioned countries.
 
-## Plan / log
-(to fill in after track + idea selection)
+## Plan / log — Project Selected: CLAUSEGUARD ⚖️
+
+- **Track Selected:** **Track 2: Best Apps & Agents** (and competing for **$3,000 Best Use of Tavily**).
+- **Core Architecture:**
+  1. **Document Ingestion:** PDF (via `pdfplumber`), DOCX (via `python-docx`), plain text / Markdown, and scanned page images (via Vision model `openbmb/MiniCPM-V-4_5` / Nemotron VL).
+  2. **Model Routing Pattern:**
+     - **Nemotron 3 Super (120B MoE, 1M context):** Whole-contract clause segmentation + high-level executive summary synthesis.
+     - **Nemotron 3 Nano (30B MoE):** High-volume, parallel clause categorization, plain-English breakdown, risk severity ranking (critical/high/medium/low), and Indian law tagging.
+     - **Nemotron 3 Ultra (550B):** Deep reasoning escalation for critical and high-risk clauses (negotiation tactics, fallback compromise positions, copy-paste email replies).
+     - **Tavily Search API:** Real-time Indian legal precedent and statute validation (e.g. Indian Contract Act 1872 Section 27, Copyright Act 1957 Section 19, DPDP Act 2023).
+  3. **UI / Frontend:** Streamlit application (`clauseguard/app.py`) featuring model telemetry routing panel, risk metric bands, one-click demo contract loader, and exportable Markdown/JSON reports.
+  4. **Offline Mock Mode:** Heuristic rule-based baseline in `mock.py` and `checklist.py` allowing zero-credit local testing.
